@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-// import http
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Task8 extends StatefulWidget {
   const Task8({super.key});
@@ -10,54 +10,47 @@ class Task8 extends StatefulWidget {
 }
 
 class _Task8State extends State<Task8> {
-  String sample = "";
-  //**************************************** function name and returned data typ 1
-  //void fetchAllProducts()async {}
-  void fetchAllProducts() async {
-    // ************************************** past code from postman (implementation)2
-   var request = http.Request('GET', Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+  String sample = "Loading...";
 
+  Future<void> fetchAllProducts() async {
+    try {
+      final response = await http
+          .get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
 
-http.StreamedResponse response = await request.send();
-
-if (response.statusCode == 200) {
-  print(await response.stream.bytesToString());
-}
-else {
-  print(response.reasonPhrase);
-}
-
-  // void callOpenAiApi(data (video to data )) async {
-  //   // ************************************** past code from postman (implementation)2
-  //   var request =
-  //       http.Request('POST', Uri.parse('https://fakestoreapi.com/products'));
-
-  //   http.StreamedResponse response = await request.send();
-
-  //   if (response.statusCode == 200) {
-  // sample = await response.stream.bytesToString();
-  //     print("========================== Retrived data");
-  //     print(await response.stream.bytesToString());
-  //   } else {
-  //     print("Error");
-  //     print(response.reasonPhrase);
-  //   }
-  // }
+      if (response.statusCode == 200) {
+        setState(() {
+          sample = response.body;
+        });
+      } else {
+        setState(() {
+          sample = "Error: ${response.reasonPhrase}";
+        });
+      }
+    } catch (e) {
+      setState(() {
+        sample = "Failed to load data: $e";
+      });
+    }
+  }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // call async function **********************3
     fetchAllProducts();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Async real example using postman"),
+      appBar: AppBar(
+        title: const Text("Async real example using Postman"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Text(sample),
         ),
-        body: Container());
+      ),
+    );
   }
 }

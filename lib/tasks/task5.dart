@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import 'task6.dart';
+
 class Task5 extends StatefulWidget {
   const Task5({super.key});
 
@@ -21,6 +23,10 @@ class _Task5State extends State<Task5> {
   @override
   Widget build(BuildContext context) {
     // padding -> single child scroll view -> form -> column -> [text form filed email , text form filed password ,  login button]
+    //remove debug banner
+    debugShowCheckedModeBanner:
+    false;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Login Page'),
@@ -136,6 +142,9 @@ class _Task5State extends State<Task5> {
                           ),
                         ),
                       );
+                      //navigate to sign up page
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Task6()));
                     },
                     // button style -> backgroundColor deep orange and padding vertical 15 horizontal 30 radius 20
                     style: ElevatedButton.styleFrom(

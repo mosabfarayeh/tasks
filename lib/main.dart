@@ -1,34 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:tasks/view/product_view_provider.dart';
 import 'package:tasks/tasks/task1.dart';
+import 'package:tasks/tasks/task2.dart';
+import 'package:tasks/tasks/task3.dart';
+import 'package:tasks/tasks/task4.dart';
+import 'package:tasks/tasks/task5.dart';
 
-import 'provider/product_provder.dart';
-//import 'tasks/task10.dart';
-import 'tasks/task11.dart';
-import 'tasks/task5.dart';
-import 'tasks/task6.dart';
-import 'tasks/task8.dart';
+// import 'tasks/task1.dart';
+// import 'tasks/task2.dart';
+import 'provider/login_provider.dart';
+import 'provider/product_provider.dart';
+import 'provider/product_provider.dart';
+import 'package:provider/provider.dart';
+
+//import 'view/product_view_provider.dart';
+import 'view/product_view_widget.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ProductProvider()),
+        ChangeNotifierProvider(create: (context) => LoginProvider()),
       ],
-      child: MainApp(),
+      child: const MyApp(),
     ),
   );
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ProductViewWidget(),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      // this is task selector
+      //home: const Task1(),
+      //home: const Task2(),
+      home: Task5(),
     );
   }
 }

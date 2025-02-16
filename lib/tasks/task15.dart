@@ -39,4 +39,10 @@ class _Task15State extends State<Task15> with SingleTickerProviderStateMixin {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 }
